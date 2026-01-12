@@ -1,0 +1,33 @@
+<?php
+// ENGLISH
+return [
+  'welcome' => 'Welcome to our website!',
+  'login' => 'Login',
+  'register' => 'Register',
+  'profile' => 'Profile',
+  'email' => 'Email',
+  'password' => 'Password',
+  'remember_me' => 'Remember me',
+  'forgot_password' => 'Forgot your password?',
+  'reset_password' => 'Reset password',
+  'send_password_reset_link' => 'Send password reset link',
+  'confirm_password' => 'Confirm password',
+  'logout' => 'Logout',
+  'name' => 'Name',
+  'verify_email' => 'Verify your email address',
+  'verify_email_link' => 'A fresh verification link has been sent to your email address.',
+  'check_email' => 'Before proceeding, please check your email for a verification link.',
+  'receive_email' => 'If you did not receive the email',
+  'click_request_another' => 'click here to request another',
+  'dashboard' => 'Dashboard',
+  'home' => 'Home',
+  'you_are_logged_in' => 'You are logged in!',
+  'reset_link_sent' => 'A reset password link has been sent to your email address.',
+  'verify_link_sent' => 'A fresh verification link has been sent to your email address.',
+  'confirm_password_before_continue' => 'Please confirm your password before continuing.',
+  'please_confirm_password' => 'Please confirm your password before continuing.',
+  'password_was_reset' => 'Your password has been reset!',
+  'password_was_reset_message' => 'Your password has been reset! You can now login with your new password.',
+  'install_pwa' => 'Add this app to your home screen!',
+  
+];

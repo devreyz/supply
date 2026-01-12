@@ -1,0 +1,1 @@
+import{a as e}from"../build/assets/vendor-upsvKRUO.js";window.axios=e;window.axios.defaults.headers.common["X-Requested-With"]="XMLHttpRequest";(function(){localStorage.getItem("theme")==="dark"?document.documentElement.classList.add("dark"):document.documentElement.classList.remove("dark")})();

@@ -1,0 +1,12 @@
+# Redireciona todas as requisições para o diretório public
+RewriteEngine On
+
+# Redireciona requisições para o diretório public, mantendo a URL limpa
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L]
+
+# Protege os arquivos .env e outros arquivos sensíveis
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

@@ -1,0 +1,25 @@
+{
+  "_vendor-CCKSAvAt.js": {
+    "file": "assets/vendor-CCKSAvAt.js",
+    "name": "vendor"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-Bggz8Jmc.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/spa.css": {
+    "file": "assets/spa-DBNNFwOD.css",
+    "src": "resources/css/spa.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-Dpw1RXOc.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_vendor-CCKSAvAt.js"
+    ]
+  }
+}

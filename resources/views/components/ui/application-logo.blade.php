@@ -1,0 +1,1 @@
+<img src="{{asset('assets/logo/lamarck-logo.png')}}" alt="Laborátorio Lamarck" {{ $attributes }}  />

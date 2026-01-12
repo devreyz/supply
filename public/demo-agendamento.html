@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Agendamentos - Laboratório Lamarck</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      text-align: center;
+      color: #2563eb;
+      margin-bottom: 30px;
+    }
+
+    .appointment-card {
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      background: #f9fafb;
+    }
+
+    .appointment-code {
+      font-size: 24px;
+      font-weight: bold;
+      color: #059669;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .info-item {
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+      border-left: 4px solid #2563eb;
+    }
+
+    .info-label {
+      font-weight: bold;
+      color: #374151;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .info-value {
+      color: #1f2937;
+      font-size: 16px;
+      margin-top: 5px;
+    }
+
+    .exams-list {
+      background: white;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 15px 0;
+    }
+
+    .exam-item {
+      padding: 8px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .exam-item:last-child {
+      border-bottom: none;
+    }
+
+    .actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-success {
+      background: #059669;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #047857;
+    }
+
+    .btn-secondary {
+      background: #6b7280;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #4b5563;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .status-scheduled {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .demo-section {
+      margin-top: 40px;
+      padding: 20px;
+      background: #eff6ff;
+      border-radius: 8px;
+      border: 1px solid #bfdbfe;
+    }
+
+    .alert {
+      padding: 15px;
+      border-radius: 5px;
+      margin: 15px 0;
+      background: #d1fae5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🏥 Sistema de Agendamentos</h1>
+      <h2>Laboratório Lamarck</h2>
+    </div>
+
+    <div class="appointment-card">
+      <div class="appointment-code" id="appointmentCode">LAM000002</div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">Paciente</div>
+          <div class="info-value" id="patientName">João Silva</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Status</div>
+          <div class="info-value">
+            <span class="status-badge status-scheduled" id="status">Agendado</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Data</div>
+          <div class="info-value" id="appointmentDate">15/03/2025</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Telefone</div>
+          <div class="info-value" id="phone">(11) 99999-9999</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Cidade</div>
+          <div class="info-value" id="city">Manga</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Valor Total</div>
+          <div class="info-value" id="total">R$ 150,00</div>
+        </div>
+      </div>
+
+      <div class="exams-list">
+        <div class="info-label">Exames Solicitados</div>
+        <div id="examsList">
+          <div class="exam-item">1. Hemograma Completo</div>
+          <div class="exam-item">2. Glicemia de Jejum</div>
+          <div class="exam-item">3. Colesterol Total</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="downloadReceipt()">
+          📄 Baixar Recibo
+        </button>
+        <button class="btn btn-success" onclick="shareWhatsApp()">
+          📱 Compartilhar WhatsApp
+        </button>
+        <button class="btn btn-secondary" onclick="copyWhatsAppLink()">
+          🔗 Copiar Link
+        </button>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3>🚀 Demonstração do Sistema</h3>
+      <p>Este é um exemplo funcional do sistema de agendamentos implementado. Os botões acima demonstram:</p>
+      <ul>
+        <li><strong>Baixar Recibo:</strong> Gera um PNG do comprovante usando Canvas</li>
+        <li><strong>Compartilhar WhatsApp:</strong> Abre WhatsApp com mensagem formatada</li>
+        <li><strong>Copiar Link:</strong> Copia o link do WhatsApp para área de transferência</li>
+      </ul>
+
+      <div class="alert" id="alertMessage" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- Incluir o JavaScript do gerador de recibos -->
+  <script src="/js/appointment-receipt.js"></script>
+
+  <script>
+    // Dados do agendamento (em uma aplicação real, viriam do backend)
+    const appointmentData = {
+      appointment_code: 'LAM000002',
+      patient_name: 'João Silva',
+      whatsapp_phone: '(11) 99999-9999',
+      formatted_date: '15/03/2025',
+      appointment_time: null,
+      city_name: 'Manga',
+      health_insurance_name: null,
+      exams: ['Hemograma Completo', 'Glicemia de Jejum', 'Colesterol Total'],
+      total_amount: 150.00,
+      status: 'scheduled',
+      whatsapp_summary: `🏥 *AGENDAMENTO LABORATÓRIO LAMARCK*
+
+📋 *Código:* LAM000002
+👤 *Paciente:* João Silva
+📅 *Data:* 15/03/2025
+🏙️ *Cidade:* Manga
+
+🧪 *Exames:*
+1. Hemograma Completo
+2. Glicemia de Jejum
+3. Colesterol Total
+
+💰 *Total:* R$ 150,00
+
+✅ *Status:* Agendado
+📞 *Contato:* (11) 99999-9999
+
+_Recibo gerado automaticamente em ${new Date().toLocaleDateString('pt-BR')}_`
+    };
+
+    // Função para baixar o recibo
+    async function downloadReceipt() {
+      try {
+        showAlert('Gerando recibo...', 'info');
+
+        const receipt = new AppointmentReceipt();
+        await receipt.generateReceipt(appointmentData);
+        receipt.downloadReceipt(appointmentData, `recibo_${appointmentData.appointment_code}.png`);
+
+        showAlert('✅ Recibo baixado com sucesso!', 'success');
+      } catch (error) {
+        console.error('Erro ao gerar recibo:', error);
+        showAlert('❌ Erro ao gerar recibo: ' + error.message, 'error');
+      }
+    }
+
+    // Função para compartilhar no WhatsApp
+    function shareWhatsApp() {
+      try {
+        const whatsappUrl = generateWhatsAppLink(appointmentData);
+        window.open(whatsappUrl, '_blank');
+        showAlert('✅ WhatsApp aberto com a mensagem!', 'success');
+      } catch (error) {
+        console.error('Erro ao abrir WhatsApp:', error);
+        showAlert('❌ Erro ao abrir WhatsApp: ' + error.message, 'error');
+      }
+    }
+
+    // Função para copiar link do WhatsApp
+    async function copyWhatsAppLink() {
+      try {
+        const whatsappUrl = generateWhatsAppLink(appointmentData);
+        await navigator.clipboard.writeText(whatsappUrl);
+        showAlert('✅ Link copiado para área de transferência!', 'success');
+      } catch (error) {
+        console.error('Erro ao copiar link:', error);
+        showAlert('❌ Erro ao copiar link: ' + error.message, 'error');
+      }
+    }
+
+    // Função auxiliar para mostrar alertas
+    function showAlert(message, type = 'info') {
+      const alertDiv = document.getElementById('alertMessage');
+      alertDiv.textContent = message;
+      alertDiv.style.display = 'block';
+
+      // Mudar cor baseada no tipo
+      switch (type) {
+        case 'success':
+          alertDiv.style.background = '#d1fae5';
+          alertDiv.style.borderColor = '#a7f3d0';
+          alertDiv.style.color = '#065f46';
+          break;
+        case 'error':
+          alertDiv.style.background = '#fee2e2';
+          alertDiv.style.borderColor = '#fca5a5';
+          alertDiv.style.color = '#dc2626';
+          break;
+        default:
+          alertDiv.style.background = '#eff6ff';
+          alertDiv.style.borderColor = '#bfdbfe';
+          alertDiv.style.color = '#1d4ed8';
+      }
+
+      // Esconder após 3 segundos
+      setTimeout(() => {
+        alertDiv.style.display = 'none';
+      }, 3000);
+    }
+
+    // Mostrar mensagem de carregamento inicial
+    document.addEventListener('DOMContentLoaded', function () {
+      showAlert('Sistema de agendamentos carregado com sucesso! 🎉', 'success');
+    });
+  </script>
+</body>
+
+</html>
