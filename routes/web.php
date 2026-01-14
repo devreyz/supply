@@ -35,8 +35,8 @@ use App\Http\Controllers\Auth\ZeToolsAuthController;
 
 // Rotas Autenticadas
 Route::middleware(['auth', 'service.access'])->group(function () {
-    // App principal
-    Route::view("/", "welcome")->name("Home");
+  // App principal
+  Route::view("/", "welcome")->name("Home");
     
     // Sistema de Cotações (Bento UI)
     Route::get('/quotes', [\App\Http\Controllers\QuoteController::class, 'index'])->name('quotes.index');
