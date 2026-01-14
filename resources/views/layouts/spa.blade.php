@@ -42,6 +42,15 @@
 
   <!-- Verificação de libs carregadas (Html5Qrcode será fornecido pelo bundle agora) -->
   <script>
+     window.APP_USER = {
+            id: "{{ auth()->id() }}",
+            name: "{{ auth()->user()?->name }}",
+            email: "{{ auth()->user()?->email }}",
+        }
+        window.CSRF_TOKEN = '{{ csrf_token() }}';
+        window.API_BASE = '/api/zepocket';
+
+        
     window.addEventListener('DOMContentLoaded', function() {
       setTimeout(() => {
         if (typeof lucide === 'undefined') {

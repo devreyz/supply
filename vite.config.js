@@ -9,6 +9,9 @@ export default defineConfig({
             input: [
                 "resources/css/app.css",
                 "resources/js/app.js",
+                // ZePocket Supply Module
+                "resources/css/zepocket.css",
+                "resources/js/modules/zepocket/main.js",
             ],
             refresh: true, // Atualiza automaticamente quando houver alterações
         }),

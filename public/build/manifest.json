@@ -1,25 +1,39 @@
 {
+  "_queue-DX9w-n4L.js": {
+    "file": "assets/queue-DX9w-n4L.js",
+    "name": "queue"
+  },
   "_vendor-CCKSAvAt.js": {
     "file": "assets/vendor-CCKSAvAt.js",
     "name": "vendor"
   },
   "resources/css/app.css": {
-    "file": "assets/app-Bggz8Jmc.css",
+    "file": "assets/app-ClWw4DV4.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
-  "resources/css/spa.css": {
-    "file": "assets/spa-DBNNFwOD.css",
-    "src": "resources/css/spa.css",
+  "resources/css/zepocket.css": {
+    "file": "assets/zepocket-CObA2fBJ.css",
+    "src": "resources/css/zepocket.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-Dpw1RXOc.js",
+    "file": "assets/app-CclahGKN.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "imports": [
-      "_vendor-CCKSAvAt.js"
+      "_vendor-CCKSAvAt.js",
+      "_queue-DX9w-n4L.js"
+    ]
+  },
+  "resources/js/modules/zepocket/main.js": {
+    "file": "assets/main-_QyEz13x.js",
+    "name": "main",
+    "src": "resources/js/modules/zepocket/main.js",
+    "isEntry": true,
+    "imports": [
+      "_queue-DX9w-n4L.js"
     ]
   }
 }

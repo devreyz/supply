@@ -6,18 +6,8 @@
 const CACHE_NAME = "spa-framework-v1.0.0";
 const OFFLINE_URL = "/spa-framework/examples/basic/index.html";
 
-// Assets para cache inicial
-const PRECACHE_ASSETS = [
-    "/spa-framework/examples/basic/index.html",
-    "/spa-framework/dist/spa.css",
-    "/spa-framework/src/core/spa.js",
-    "/spa-framework/src/ui/modals.js",
-    "/spa-framework/src/storage/indexeddb.js",
-    "/spa-framework/src/storage/localstorage.js",
-    "/spa-framework/src/offline/queue.js",
-    "/spa-framework/src/pwa/install.js",
-    "/spa-framework/src/pwa/notifications.js",
-];
+// Assets para cache inicial - Somente assets garantidos
+const PRECACHE_ASSETS = ["/", "/manifest.json", "/robots.txt"];
 
 // Instalação - Pre-cache de assets
 self.addEventListener("install", (event) => {
@@ -28,7 +18,10 @@ self.addEventListener("install", (event) => {
             .open(CACHE_NAME)
             .then((cache) => {
                 console.log("[SW] Pre-caching assets");
-                return cache.addAll(PRECACHE_ASSETS);
+                // Tenta carregar um por um para não falhar tudo se um falhar
+                return Promise.allSettled(
+                    PRECACHE_ASSETS.map((url) => cache.add(url))
+                );
             })
             .then(() => self.skipWaiting())
     );

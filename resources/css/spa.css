@@ -1503,9 +1503,9 @@ select.input-field {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.bento-card:active {
+/* .bento-card:active {
     transform: scale(0.98);
-}
+} */
 
 .bento-card.primary {
     background: linear-gradient(

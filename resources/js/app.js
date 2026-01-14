@@ -2,16 +2,6 @@ import "./bootstrap";
 
 import { SPA as App } from "./modules/spa";
 
-// Importa módulos de páginas
-import { initHomePage } from "./pages/home.js";
-import { initAgendamentoPage } from "./pages/agendamento.js";
-import { initChatPage } from "./pages/chat.js";
-import { initConfiguracoesPage } from "./pages/configuracoes.js";
-import { initConveniosPage } from "./pages/convenios.js";
-import { initExamesListaPage } from "./pages/exames-lista.js";
-import { initOrcamentosPage } from "./pages/orcamentos.js";
-import { initResultadoPage } from "./pages/resultado.js";
-
 // Importa lógica global e overlays
 import { initGlobalLogic } from "./modules/global-logic.js";
 
@@ -29,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     app.init({
         homePage: "home",
         animation: {
-            type: "fade",
+            type: "zoom",
             speed: 0.35,
         },
         ui: {

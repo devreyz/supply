@@ -44,6 +44,11 @@ Route::middleware(['auth', 'service.access'])->group(function () {
     
     // Busca de produtos (API)
     Route::get('/api/products/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
+    
+    // ZePocket Supply - Gestão de Compras
+    Route::get('/zepocket', function () {
+        return view('zepocket');
+    })->name('zepocket');
 });
 
 

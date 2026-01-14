@@ -6,3 +6,308 @@
 @source '../**/*.js';
 @source "../js/**/*.js";
 @source "../js/**/*.css";
+
+
+/**
+ * 🎨 ZePocket CSS (sem @apply)
+ * Estilos específicos do módulo ZePocket
+ */
+
+/* ============================================
+  TAB BUTTONS
+============================================ */
+.tab-btn {
+    background-color: #f1f5f9; /* bg-slate-100 */
+    color: #64748b; /* text-slate-500 */
+}
+
+.tab-btn.active {
+    background-color: var(--primary, #0ea5e9); /* bg-primary (fallback) */
+    color: #ffffff; /* text-white */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -4px rgba(0, 0, 0, 0.1), 0 8px 30px rgba(14, 165, 233, 0.3); /* approximated shadow + primary/30 */
+}
+
+/* ============================================
+  ORDER FILTER BUTTONS
+============================================ */
+.order-filter-btn {
+    background-color: #f1f5f9; /* bg-slate-100 */
+    color: #64748b; /* text-slate-500 */
+}
+
+.order-filter-btn.active {
+    background-color: #0f172a; /* bg-slate-800 */
+    color: #ffffff; /* text-white */
+}
+
+/* ============================================
+  BENTO CARD (ZePocket specific)
+============================================ */
+.bento-card {
+    background-color: #ffffff; /* bg-white */
+    border-radius: 1rem; /* rounded-2xl */
+    border: 1px solid #f1f5f9; /* border + border-slate-100 */
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+    transition: all 0.2s ease;
+}
+
+.bento-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+}
+
+/* ============================================
+  APP HEADER (ZePocket style)
+============================================ */
+#page-zepocket .app-header,
+#page-catalog .app-header,
+#page-quote .app-header,
+#page-products .app-header,
+#page-suppliers .app-header,
+#page-orders .app-header,
+#page-zepocket-settings .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem; /* py-3 px-4 */
+    background-color: var(--background, #ffffff); /* bg-background */
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.header-title {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 700; /* font-bold */
+    color: #1e293b; /* text-slate-800 */
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* gap-2 */
+}
+
+.icon-btn {
+    padding: 0.5rem; /* p-2 */
+    border-radius: 0.75rem; /* rounded-xl */
+    color: #475569; /* text-slate-600 */
+    transition: all 0.15s ease;
+}
+
+.icon-btn:hover {
+    background-color: #f1f5f9; /* hover:bg-slate-100 */
+}
+
+.icon-btn:active {
+    transform: scale(0.95); /* active:scale-95 */
+}
+
+/* ============================================
+  PAGE CONTENT
+============================================ */
+.page-content {
+    padding-bottom: 6rem; /* pb-24 */
+}
+
+.page-content.no-bottom-nav {
+    padding-bottom: 1rem; /* pb-4 */
+}
+
+/* ============================================
+  BOTTOM NAV (ZePocket)
+============================================ */
+#page-zepocket .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff; /* bg-white */
+    border-top: 1px solid #f1f5f9; /* border-t border-slate-100 */
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 0.5rem 0.5rem; /* py-2 px-2 */
+    z-index: 30;
+    max-width: 32rem; /* max-w-lg */
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: env(safe-area-inset-bottom, 8px);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8; /* text-slate-400 */
+    transition: all 0.15s ease;
+    padding: 0.25rem 0.75rem; /* py-1 px-3 */
+}
+
+.nav-item.active {
+    color: var(--primary, #0ea5e9); /* text-primary (fallback) */
+}
+
+.nav-item-center {
+    margin-top: -1rem; /* -mt-4 */
+}
+
+/* ============================================
+  BADGE
+============================================ */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    border-radius: 9999px; /* rounded-full */
+}
+
+.badge-error {
+    background-color: #ef4444; /* bg-red-500 */
+    color: #ffffff; /* text-white */
+}
+
+/* ============================================
+  SHEET STYLES (ZePocket overrides)
+============================================ */
+.sheet-container {
+    max-height: 90vh;
+}
+
+.sheet-body {
+    overflow-y: auto;
+    max-height: calc(90vh - 80px);
+}
+
+/* ============================================
+  PRICE VARIATION INDICATORS
+============================================ */
+.price-up {
+    color: #ef4444; /* text-red-500 */
+}
+
+.price-up::before {
+    content: "↑ ";
+}
+
+.price-down {
+    color: #10b981; /* text-emerald-500 */
+}
+
+.price-down::before {
+    content: "↓ ";
+}
+
+.price-stable {
+    color: #94a3b8; /* text-slate-400 */
+}
+
+/* ============================================
+  MARGIN CARD COLORS
+============================================ */
+.margin-danger {
+    background-color: #fee2e2; /* bg-red-100 */
+    color: #991b1b; /* text-red-800 */
+}
+
+.margin-warning {
+    background-color: #fef3c7; /* bg-yellow-100 */
+    color: #92400e; /* text-yellow-800 (approx) */
+}
+
+.margin-success {
+    background-color: #d1fae5; /* bg-emerald-100 */
+    color: #065f46; /* text-emerald-800 (approx) */
+}
+
+/* ============================================
+  CART FOOTER
+============================================ */
+#cart-footer {
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+  ANIMATIONS
+============================================ */
+@keyframes pulse-soft {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.animate-pulse-soft {
+    animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* ============================================
+  EMPTY STATE
+============================================ */
+.empty-state {
+    text-align: center;
+    padding: 3rem 0; /* py-12 */
+}
+
+.empty-state-icon {
+    width: 4rem; /* w-16 */
+    height: 4rem; /* h-16 */
+    margin-left: auto;
+    margin-right: auto; /* mx-auto */
+    margin-bottom: 1rem; /* mb-4 */
+    color: #cbd5e1; /* text-slate-300 */
+}
+
+.empty-state-title {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 700;
+    color: #475569; /* text-slate-600 */
+    margin-bottom: 0.25rem; /* mb-1 */
+}
+
+.empty-state-description {
+    font-size: 0.875rem; /* text-sm */
+    color: #94a3b8; /* text-slate-400 */
+}
+
+/* ============================================
+  SUGGESTION DROPDOWN
+============================================ */
+#quote-suggestions {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+
+#quote-suggestions::-webkit-scrollbar {
+    width: 6px;
+}
+
+#quote-suggestions::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#quote-suggestions::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 3px;
+}
+
+/* ============================================
+  RESPONSIVE ADJUSTMENTS
+============================================ */
+@media (max-width: 400px) {
+    .nav-item span {
+        font-size: 9px;
+    }
+
+    .nav-item-center > div {
+        width: 3rem; /* w-12 */
+        height: 3rem; /* h-12 */
+        margin-top: -1rem; /* -mt-4 */
+    }
+}
