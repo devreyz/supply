@@ -8,56 +8,22 @@
         <button class="icon-btn" data-back>
             <i data-lucide="arrow-left" class="w-6 h-6"></i>
         </button>
-        <h1 class="header-title">Catálogo</h1>
+        <h1 class="header-title"></h1>
         <div class="header-actions">
             <button class="icon-btn relative" data-go="cart">
                 <i data-lucide="shopping-cart" class="w-6 h-6"></i>
-                <span id="catalog-cart-badge" class="badge badge-error absolute -top-1 -right-1 min-w-[18px] h-[18px] text-[10px] hidden">0</span>
+                <span id="catalog-cart-badge" class="badge badge-error absolute -top-1 -right-1 min-w-4.5 h-4.5 text-[10px] hidden">0</span>
             </button>
-        </div>
-    </header>
-
-    <main class="page-content no-bottom-nav">
-        
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-       
-        .active-tab { background-color: #0F172A; color: white; border: none; }
-        .inactive-tab { background-color: white; color: #64748B; border: 1px solid #E2E8F0; }
-        .fade-in { animation: fadeIn 0.3s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Checkbox Customizado */
-        .custom-checkbox:checked {
-            background-color: #059669;
-            border-color: #059669;
-        }
-    </style>
-</head>
-<body class="text-slate-800">
-
-    <div class="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-md border-b border-slate-200 z-50 px-4 py-3">
-        <div class="flex justify-between items-center max-w-lg mx-auto">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-emerald-500/30">Z.</div>
-                <div>
-                    <h1 class="font-bold text-lg leading-none tracking-tight">Núcleo de Pedidos</h1>
-                    <p class="text-[10px] text-slate-500 font-medium">Gerador de Listas & PDF</p>
-                </div>
-            </div>
             <div class="bg-slate-100 rounded-full px-3 py-1 text-xs font-bold text-slate-600">
                 <span id="headerTotalItems">0</span> itens
             </div>
         </div>
-    </div>
+    </header>
 
-    <main class="max-w-lg px-4 space-y-4" id="app">
-        
+    <main id="app" class="page-content pt-16">
+     
+   
+
         <div class="grid grid-cols-3 gap-2 mb-4 sticky top-16 z-40 bg-[#F8FAFC] py-2">
             <button onclick="switchTab('catalogo')" id="btn-catalogo" class="active-tab py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm flex flex-col items-center gap-1">
                 <i class="ph ph-list-magnifying-glass text-lg"></i> CATÁLOGO
@@ -71,19 +37,19 @@
             </button>
         </div>
 
-        <div id="view-catalogo" class="space-y-4 fade-in">
+        <div id="view-catalogo" class="space-y-4 mt-16 fade-in">
             <div class="relative">
                 <i class="ph ph-magnifying-glass absolute left-3 top-3.5 text-slate-400"></i>
-                <input type="text" onkeyup="renderCatalog(this.value)" placeholder="Buscar para adicionar..." class="w-full bg-white border border-slate-200 rounded-xl pl-10 p-3 shadow-sm outline-none focus:border-emerald-500">
+                <input id="searchInput" type="text" onkeyup="renderCatalog(this.value)" placeholder="Buscar para adicionar..." class="w-full bg-white border border-slate-200 rounded-xl pl-10 p-3 shadow-sm outline-none focus:border-emerald-500">
             </div>
 
             <div id="catalogList" class="space-y-3 pb-20">
-                </div>
+            </div>
         </div>
 
-        <div id="view-carrinho" class="hidden space-y-4 fade-in pb-24">
+        <div id="view-carrinho" class="hidden space-y-4 mt-16 fade-in pb-24">
             <div id="cartList" class="space-y-3">
-                </div>
+            </div>
             
             <div id="cartFooter" class="hidden fixed bottom-4 left-4 right-4 max-w-lg mx-auto bg-slate-900 text-white p-4 rounded-2xl shadow-2xl flex justify-between items-center z-50">
                 <div>
@@ -96,7 +62,7 @@
             </div>
         </div>
 
-        <div id="view-exportar" class="hidden space-y-6 fade-in pb-20">
+        <div id="view-exportar" class="hidden space-y-6 mt-16 fade-in pb-20">
             
             <div class="bg-blue-50 border border-blue-100 p-4 rounded-xl flex gap-3 items-start">
                 <i class="ph ph-info text-blue-600 text-xl"></i>
@@ -107,10 +73,8 @@
             </div>
 
             <div id="exportList" class="space-y-4">
-                </div>
+            </div>
         </div>
-
-    </main>
 
     <div id="toast" class="fixed bottom-24 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-full text-xs font-bold shadow-xl opacity-0 transition-opacity pointer-events-none z-50">
         Item atualizado
@@ -126,7 +90,6 @@
         let cart = []; 
 
         if (!db) {
-            alert("Nenhum dado encontrado! Por favor, cadastre produtos e cotações no módulo anterior primeiro.");
             // Mock para teste visual se estiver vazio
             db = { products: [], suppliers: [], quotes: [] };
         }
@@ -483,11 +446,4 @@
 
     </script>
     </main>
-
-    {{-- Footer do Carrinho (aparece quando tem itens) --}}
-    <div id="cart-footer" class="hidden fixed bottom-4 left-4 right-4 max-w-lg mx-auto bg-slate-900 text-white p-4 rounded-2xl shadow-2xl z-50">
-        <div id="cart-footer-content">
-            {{-- Conteúdo renderizado via JS --}}
-        </div>
-    </div>
 </section>

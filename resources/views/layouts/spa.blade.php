@@ -50,16 +50,7 @@
         window.CSRF_TOKEN = '{{ csrf_token() }}';
         window.API_BASE = '/api/zepocket';
 
-        
-    window.addEventListener('DOMContentLoaded', function() {
-      setTimeout(() => {
-        if (typeof lucide === 'undefined') {
-          console.error('❌ LUCIDE não disponível - ícones não serão renderizados');
-        } else {
-          console.log('✅ Lucide carregado:', typeof lucide);
-        }
-      }, 500);
-    });
+  
   </script>
 
   @vite(['resources/js/app.js'])

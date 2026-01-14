@@ -15,8 +15,7 @@ import { Html5Qrcode } from "html5-qrcode";
 
 // Inicializa a aplicação SPA
 document.addEventListener("DOMContentLoaded", () => {
-    window.app = new App();
-    app.init({
+    window.app = new App({
         homePage: "home",
         animation: {
             type: "zoom",
@@ -29,7 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
             enabled: true,
             showBanner: false, // Desabilita o banner automático para não conflitar com o LGPD
         },
+        db: {
+            name: "supply",
+            version: 1,
+        },
+        storage: {
+            prefix: "supply_",
+        },
     });
+    app.init();
 
 
     // Inicializa lógica global (overlays, tema, LGPD)
@@ -110,5 +117,5 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("Lucide observer init failed", err);
     }
 
-    console.log("🚀 Lamarck SPA initialized");
+    
 });

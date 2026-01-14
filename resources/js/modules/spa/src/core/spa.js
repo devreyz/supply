@@ -79,6 +79,14 @@ export const DEFAULT_CONFIG = {
         bannerDelay: 5000,
     },
 
+    // Database
+    db: {
+        name: "spa_app",
+        version: 1,
+    },
+    storage: {
+        prefix: "spa_",
+    },
     // Callbacks
     callbacks: {
         beforeNavigate: null,
@@ -96,7 +104,6 @@ class SPA {
     constructor(config = {}) {
         // Merge configs
         this.config = this._deepMerge(DEFAULT_CONFIG, config);
-
         // Estado
         this.current = this.config.homePage;
         this.previousPage = null;
@@ -142,8 +149,6 @@ class SPA {
      */
     async init() {
         try {
-            console.log("🚀 Inicializando SPA Framework...");
-
             // Registra páginas
             this._registerPages();
 
@@ -1206,7 +1211,6 @@ class SPA {
                 window.lucide.createIcons();
             }
         });
-        console.log("");
     }
 
     /**
@@ -1502,7 +1506,6 @@ class SPA {
      * Configura histórico inicial
      */
     _setupInitialHistory() {
-        console.log("SPA: Setting up initial history...");
         // Verifica hash atual
         const hash = window.location.hash.substring(1);
         if (hash && this.pages.has(hash)) {
@@ -1513,7 +1516,6 @@ class SPA {
             });
         }
 
-        console.log({ hash });
         // Verifica se na hash existe alguma referencia a _modal, _sheet ou _drawer e caso tenha redireciona para a página correta
         const hasOpenedOverlay = ["_modal", "_sheet", "_drawer"].some(
             (suffix) => hash.includes(suffix)
@@ -1550,27 +1552,21 @@ class SPA {
      */
     async _initStorage() {
         try {
-            console.log("SPA: _initStorage starting...");
 
             // Inicializa IndexedDB ORM
-            console.log("SPA: initializing IndexedDBORM...");
-            this._db = new IndexedDBORM("spa_app");
+            this._db = new IndexedDBORM(this.config.db.name, this.config.db.version);
             await this._db.init();
-            console.log("SPA: IndexedDBORM.init() resolved");
             this._log(2, "💾 IndexedDB inicializado");
 
             // Inicializa localStorage wrapper
-            this._storage = new LocalStorageORM("spa_");
+            this._storage = new LocalStorageORM(this.config.storage.prefix);
             this._log(2, "💾 localStorage inicializado");
 
             // Inicializa queue
-            console.log("SPA: initializing JobQueue...");
             this._queue = new JobQueue(this._db);
             await this._queue.init();
-            console.log("SPA: JobQueue.init() resolved");
             this._log(2, "📋 Job Queue inicializada");
 
-            console.log("SPA: _initStorage completed");
         } catch (error) {
             console.error("Erro ao inicializar storage:", error);
             this._emit("spa:error", { error });
