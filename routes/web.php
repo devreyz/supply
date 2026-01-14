@@ -61,24 +61,3 @@ Route::get("lang/{lang}", function ($lang) {
 
 
 require __DIR__ . "/auth.php";
-
-// Rotas de autenticação ZeTools OAuth2 (Provider Principal)
-Route::middleware('guest')->group(function () {
-  Route::get('auth/zetools', [ZeToolsAuthController::class, 'redirect'])->name('auth.zetools');
-  Route::get('auth/callback', [ZeToolsAuthController::class, 'callback'])->name('auth.zetools.callback');
-  // Switch account: logout and redirect to ZeTools for new login
-  Route::get('auth/switch', [ZeToolsAuthController::class, 'switch'])->name('auth.switch');
-});
-
-Route::post('logout', [ZeToolsAuthController::class, 'logout'])->name('logout')->middleware('auth');
-
-// Rotas de login Social (Google) - Desabilitadas, usar apenas ZeTools
-/*
-Route::middleware('guest')->group(function () {
-  Route::get('auth/google', [SocialController::class, 'redirectToGoogle'])->name('auth.google');
-  Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback'])->name('auth.google.callback');
-  // Compatibilidade com rota /login/google usada por callback local
-  Route::get('login/google', [SocialController::class, 'redirectToGoogle'])->name('login.google');
-  Route::get('login/google/callback', [SocialController::class, 'handleGoogleCallback'])->name('login.google.callback');
-});
-*/

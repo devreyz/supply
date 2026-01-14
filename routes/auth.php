@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\ZeToolsAuthController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -38,3 +39,14 @@ Route::post('/logout', function () {
     
     return redirect('/');
 })->name('logout');
+
+
+// Rotas de autenticação ZeTools OAuth2 (Provider Principal)
+Route::middleware('guest')->group(function () {
+  Route::get('auth/zetools', [ZeToolsAuthController::class, 'redirect'])->name('auth.zetools');
+  Route::get('auth/callback', [ZeToolsAuthController::class, 'callback'])->name('auth.zetools.callback');
+  // Switch account: logout and redirect to ZeTools for new login
+  Route::get('auth/switch', [ZeToolsAuthController::class, 'switch'])->name('auth.switch');
+});
+
+Route::post('logout', [ZeToolsAuthController::class, 'logout'])->name('logout')->middleware('auth');

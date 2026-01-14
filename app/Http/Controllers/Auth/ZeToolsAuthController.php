@@ -1,14 +1,16 @@
 <?php
+
 // ...existing code...
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Laravel\Socialite\Facades\Socialite;
-use Exception;
 
 class ZeToolsAuthController extends Controller
 {
@@ -29,30 +31,34 @@ class ZeToolsAuthController extends Controller
 
             // 1. Obter usuário do Socialite
             $zetoolsUser = Socialite::driver('zetools')->user();
-            
+
             // 2. Obter dados brutos que o ZeTools enviou (incluindo o que adicionamos na API)
             $userData = $zetoolsUser->getRaw();
-            
+
             logger()->info('Dados recebidos do ZeTools', [
                 'email' => $zetoolsUser->email,
-                'has_active_gondola' => $userData['has_active_gondola'] ?? 'não definido'
+                'has_active_gondola' => $userData['has_active_gondola'] ?? 'não definido',
             ]);
 
             // 3. Verificar acesso (usando o campo que criamos no ZeTools)
             // Se for admin no ZeTools, o campo has_active_gondola virá true pelo bypass que criamos
             $hasAccess = $userData['has_active_gondola'] ?? false;
 
-            if (!$hasAccess) {
+            if (! $hasAccess) {
                 logger()->warning('Acesso negado: Usuário sem assinatura ativa', ['email' => $zetoolsUser->email]);
+
+                // Redireciona para a tela de login indicando falta de assinatura
                 return redirect()->route('login')
-                    ->with('error', 'Você não tem assinatura ativa para acessar o Gôndola. Por favor, assine no ZeTools.');
+                    ->with('error', 'Você não tem assinatura ativa para acessar o Gôndola. Por favor, assine no ZeTools.')
+                    ->with('no_subscription', true)
+                    ->with('checkout_url', url( env("ZETOOLS_BASE_URL") . '/checkout/gondola'));
             }
 
             // 4. Criar ou atualizar usuário local
             // Primeiro tentamos pelo zetools_id, se não encontrar, tentamos pelo email para vincular a conta
             $user = User::where('zetools_id', $zetoolsUser->id)->first();
 
-            if (!$user) {
+            if (! $user) {
                 $user = User::where('email', $zetoolsUser->email)->first();
             }
 
@@ -60,9 +66,9 @@ class ZeToolsAuthController extends Controller
             $subscriptionData = $userData['subscription_status'] ?? [];
             $gondolaSubscription = collect($subscriptionData)->firstWhere('service_slug', 'gondola');
             $serviceExpiresAt = $gondolaSubscription['expires_at'] ?? null;
-            
+
             // Se não tiver data de expiração, assumir 30 dias (ou null para acesso vitalício)
-            $serviceAccessExpires = $serviceExpiresAt 
+            $serviceAccessExpires = $serviceExpiresAt
                 ? \Carbon\Carbon::parse($serviceExpiresAt)
                 : now()->addDays(30);
 
@@ -96,7 +102,7 @@ class ZeToolsAuthController extends Controller
         } catch (Exception $e) {
             logger()->error('Erro Crítico no OAuth ZeTools', [
                 'mensagem' => $e->getMessage(),
-                'linha' => $e->getLine()
+                'linha' => $e->getLine(),
             ]);
 
             return redirect()->route('login')
@@ -133,7 +139,7 @@ class ZeToolsAuthController extends Controller
     public function refreshToken(User $user): bool
     {
         try {
-            $response = Http::asForm()->post(config('services.zetools.base_url') . '/oauth/token', [
+            $response = Http::asForm()->post(config('services.zetools.base_url').'/oauth/token', [
                 'grant_type' => 'refresh_token',
                 'refresh_token' => $user->zetools_refresh_token,
                 'client_id' => config('services.zetools.client_id'),
@@ -148,11 +154,13 @@ class ZeToolsAuthController extends Controller
                     'zetools_refresh_token' => $data['refresh_token'] ?? $user->zetools_refresh_token,
                     'token_expires_at' => now()->addSeconds($data['expires_in']),
                 ]);
+
                 return true;
             }
         } catch (Exception $e) {
             logger()->error('Falha ao renovar token', ['id' => $user->id, 'erro' => $e->getMessage()]);
         }
+
         return false;
     }
 }
