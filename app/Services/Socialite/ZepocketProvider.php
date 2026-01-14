@@ -11,7 +11,7 @@ class ZepocketProvider extends AbstractProvider implements ProviderInterface
     /**
      * O escopo padrão para autenticação.
      */
-    protected $scopes = ['profile', 'email'];
+    protected $scopes = ['user-read', 'user-email'];
 
     /**
      * O separador de escopo.
@@ -62,7 +62,7 @@ class ZepocketProvider extends AbstractProvider implements ProviderInterface
     {
         return (new User)->setRaw($user)->map([
             'id' => $user['id'] ?? null,
-            'nickname' => $user['username'] ?? null,
+            'nickname' => $user['username'] ?? $user['name'] ?? null,
             'name' => $user['name'] ?? null,
             'email' => $user['email'] ?? null,
             'avatar' => $user['avatar'] ?? null,

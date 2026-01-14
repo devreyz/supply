@@ -15,6 +15,7 @@ use App\Http\Controllers\UnidadesController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\Auth\ZeToolsAuthController;
 
 
 /*
@@ -30,11 +31,12 @@ use App\Http\Controllers\Auth\SocialController;
 
 /*Route::post("/payment", [PaymentController::class, "processPayment"]);*/
 
+// Página inicial
 
 // Rotas Autenticadas
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'service.access'])->group(function () {
     // App principal
-    Route::view("app", "app")->name("app");
+    Route::view("/", "welcome")->name("Home");
     
     // Sistema de Cotações (Bento UI)
     Route::get('/quotes', [\App\Http\Controllers\QuoteController::class, 'index'])->name('quotes.index');
@@ -42,7 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     // Busca de produtos (API)
     Route::get('/api/products/search', [\App\Http\Controllers\ProductController::class, 'search'])->name('products.search');
-   });
+});
 
 
 Route::get("lang/{lang}", function ($lang) {
@@ -60,7 +62,16 @@ Route::get("lang/{lang}", function ($lang) {
 
 require __DIR__ . "/auth.php";
 
-// Rotas de login Social (Google)
+// Rotas de autenticação ZeTools OAuth2 (Provider Principal)
+Route::middleware('guest')->group(function () {
+  Route::get('auth/zetools', [ZeToolsAuthController::class, 'redirect'])->name('auth.zetools');
+  Route::get('auth/callback', [ZeToolsAuthController::class, 'callback'])->name('auth.zetools.callback');
+});
+
+Route::post('logout', [ZeToolsAuthController::class, 'logout'])->name('logout')->middleware('auth');
+
+// Rotas de login Social (Google) - Desabilitadas, usar apenas ZeTools
+/*
 Route::middleware('guest')->group(function () {
   Route::get('auth/google', [SocialController::class, 'redirectToGoogle'])->name('auth.google');
   Route::get('auth/google/callback', [SocialController::class, 'handleGoogleCallback'])->name('auth.google.callback');
@@ -68,11 +79,4 @@ Route::middleware('guest')->group(function () {
   Route::get('login/google', [SocialController::class, 'redirectToGoogle'])->name('login.google');
   Route::get('login/google/callback', [SocialController::class, 'handleGoogleCallback'])->name('login.google.callback');
 });
-
-// Rotas de autenticação ZePocket OAuth2
-Route::middleware('guest')->group(function () {
-  Route::get('auth/zepocket', [\App\Http\Controllers\Auth\ZepocketAuthController::class, 'redirect'])->name('auth.zepocket');
-  Route::get('auth/zepocket/callback', [\App\Http\Controllers\Auth\ZepocketAuthController::class, 'callback'])->name('auth.zepocket.callback');
-});
-
-Route::post('logout', [\App\Http\Controllers\Auth\ZepocketAuthController::class, 'logout'])->name('logout')->middleware('auth');
+*/

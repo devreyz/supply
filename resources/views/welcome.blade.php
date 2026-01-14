@@ -1,0 +1,1467 @@
+<x-spa-layout>
+    <!-- =================== PAGE: HOME =================== -->
+    <div class="page active" id="page-home" data-level="home">
+      <header class="app-header">
+        <button class="icon-btn" data-drawer="menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" x2="20" y1="12" y2="12" />
+            <line x1="4" x2="20" y1="6" y2="6" />
+            <line x1="4" x2="20" y1="18" y2="18" />
+          </svg>
+        </button>
+        <h1 class="header-title">SPA Framework</h1>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:inline;">
+          @csrf
+          <button type="submit" class="icon-btn" aria-label="Sair" title="Sair">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+          </button>
+        </form>
+
+        <button id="btn-notifications" class="icon-btn" aria-label="Notificações" onclick="openNotifications()"
+          style="position:relative;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0 1 18 14.158V11a6 6 0 1 0-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <span id="notif-badge"
+            style="position:absolute;top:6px;right:6px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:#ef4444;color:white;font-size:11px;display:none;align-items:center;justify-content:center;display:flex;">0</span>
+        </button>
+
+        <button class="icon-btn" data-sheet="settings">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+        </button>
+      </header>
+
+      <main class="page-content pb-nav">
+        <!-- Hero -->
+        <div class="hero-section">
+          <div class="hero-icon">🚀</div>
+          <h2 style="margin: 0 0 0.5rem;">Bem-vindo!</h2>
+          <p class="text-secondary" style="margin: 0;">Framework SPA com experiência nativa</p>
+        </div>
+
+        <!-- Bento Grid -->
+        <div class="bento-grid">
+          <div class="bento-widget primary" data-go="navigation">
+            <div class="widget-icon" style="background: rgba(255,255,255,0.2);">
+              <span style="font-size: 1.5rem;">🧭</span>
+            </div>
+            <div>
+              <h3 class="widget-title">Navegação</h3>
+              <p class="widget-subtitle">Páginas e transições</p>
+            </div>
+          </div>
+
+          <div class="bento-widget" data-go="components">
+            <div class="widget-icon">
+              <span style="font-size: 1.5rem;">🎨</span>
+            </div>
+            <div>
+              <h3 class="widget-title">Componentes</h3>
+              <p class="widget-subtitle">UI Elements</p>
+            </div>
+          </div>
+
+          <div class="bento-widget" data-go="storage">
+            <div class="widget-icon">
+              <span style="font-size: 1.5rem;">💾</span>
+            </div>
+            <div>
+              <h3 class="widget-title">Storage</h3>
+              <p class="widget-subtitle">IndexedDB & Local</p>
+            </div>
+          </div>
+
+          <div class="bento-widget" data-go="offline">
+            <div class="widget-icon">
+              <span style="font-size: 1.5rem;">📋</span>
+            </div>
+            <div>
+              <h3 class="widget-title">Offline</h3>
+              <p class="widget-subtitle">Jobs & Queue</p>
+            </div>
+          </div>
+
+          <div class="bento-widget span-2 accent" data-go="pwa">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+              <span style="font-size: 2.5rem;">📱</span>
+              <div>
+                <h3 class="widget-title" style="color: white;">PWA</h3>
+                <p class="widget-subtitle" style="color: rgba(255,255,255,0.8);">Instale como app nativo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Features -->
+        <div class="demo-section mt-lg">
+          <h3 class="demo-section-title">Recursos</h3>
+          <div class="feature-grid">
+            <div class="feature-item">
+              <div class="feature-item-icon">⚡</div>
+              <div class="feature-item-text">Zero Dependências</div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-item-icon">📦</div>
+              <div class="feature-item-text">
+                < 30KB</div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-item-icon">🔄</div>
+                <div class="feature-item-text">Offline First</div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-item-icon">👆</div>
+                <div class="feature-item-text">Gestos Touch</div>
+              </div>
+            </div>
+          </div>
+      </main>
+
+
+    </div>
+
+    <!-- =================== PAGE: NAVIGATION =================== -->
+    <div class="page" id="page-navigation" data-level="primary">
+      <header class="app-header">
+        <button class="icon-btn" data-back>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="m12 19-7-7 7-7" />
+            <path d="M19 12H5" />
+          </svg>
+        </button>
+        <h1 class="header-title">Navegação</h1>
+      </header>
+
+      <main class="page-content no-bottom-nav">
+        <div class="demo-section">
+          <h3 class="demo-section-title">Data Attributes</h3>
+          <div class="card">
+            <div class="card-body">
+              <p class="text-secondary mb-md">Use data attributes para navegação declarativa:</p>
+              <div class="code-block">
+                &lt;button data-go="pagina"&gt;Ir&lt;/button&gt;
+                &lt;button data-back&gt;Voltar&lt;/button&gt;
+                &lt;button data-drawer="menu"&gt;Menu&lt;/button&gt;
+                &lt;button data-sheet="opcoes"&gt;Sheet&lt;/button&gt;
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <h3 class="demo-section-title">Testar Navegação</h3>
+          <div class="flex flex-col gap-sm">
+            <button class="btn btn-primary btn-block" data-go="navigation-sub">
+              Ir para Sub-página →
+            </button>
+            <button class="btn btn-outline btn-block" data-drawer="menu">
+              Abrir Drawer ☰
+            </button>
+            <button class="btn btn-outline btn-block" data-sheet="demo-sheet">
+              Abrir Bottom Sheet ↑
+            </button>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <h3 class="demo-section-title">Animações</h3>
+          <div class="flex flex-wrap gap-sm">
+            <button class="btn btn-sm btn-outline" onclick="changeAnimation('fade')">Fade</button>
+            <button class="btn btn-sm btn-outline" onclick="changeAnimation('slide')">Slide</button>
+            <button class="btn btn-sm btn-outline" onclick="changeAnimation('stack')">Stack</button>
+            <button class="btn btn-sm btn-outline" onclick="changeAnimation('zoom')">Zoom</button>
+            <button class="btn btn-sm btn-outline" onclick="changeAnimation('flip')">Flip</button>
+            <button class="btn btn-sm btn-outline" onclick="changeAnimation('cube')">Cube</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- =================== PAGE: NAVIGATION SUB =================== -->
+    <div class="page" id="page-navigation-sub" data-level="secondary" data-parent="navigation">
+      <header class="app-header">
+        <button class="icon-btn" data-back>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="m12 19-7-7 7-7" />
+            <path d="M19 12H5" />
+          </svg>
+        </button>
+        <h1 class="header-title">Sub-página</h1>
+      </header>
+
+      <main class="page-content no-bottom-nav">
+        <div class="card">
+          <div class="card-body text-center">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+            <h2>Página Secundária</h2>
+            <p class="text-secondary">Esta é uma sub-página de "Navegação".</p>
+            <p class="text-secondary">O botão voltar irá para a página pai automaticamente.</p>
+            <div class="mt-lg">
+              <button class="btn btn-primary" data-back>← Voltar</button>
+              <button class="btn btn-outline" data-back="home">Ir para Home</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- =================== PAGE: COMPONENTS =================== -->
+    <div class="page" id="page-components" data-level="primary">
+      <header class="app-header">
+        <button class="icon-btn" data-back>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="m12 19-7-7 7-7" />
+            <path d="M19 12H5" />
+          </svg>
+        </button>
+        <h1 class="header-title">Componentes UI</h1>
+      </header>
+
+      <main class="page-content no-bottom-nav">
+        <!-- Buttons -->
+        <div class="demo-section">
+          <h3 class="demo-section-title">Botões</h3>
+          <div class="flex flex-wrap gap-sm">
+            <button class="btn btn-primary">Primary</button>
+            <button class="btn btn-secondary">Secondary</button>
+            <button class="btn btn-accent">Accent</button>
+            <button class="btn btn-success">Success</button>
+            <button class="btn btn-error">Error</button>
+            <button class="btn btn-outline">Outline</button>
+            <button class="btn btn-ghost">Ghost</button>
+          </div>
+        </div>
+
+        <!-- Toasts -->
+        <div class="demo-section">
+          <h3 class="demo-section-title">Toasts Bento (arraste para fechar)</h3>
+          <div class="flex flex-wrap gap-sm">
+            <button class="btn btn-sm btn-outline"
+              onclick="app.toastSuccess('Sucesso!', 'Operação concluída')">Success</button>
+            <button class="btn btn-sm btn-outline" onclick="app.toastError('Erro!', 'Algo deu errado')">Error</button>
+            <button class="btn btn-sm btn-outline"
+              onclick="app.toastWarning('Atenção!', 'Verifique os dados')">Warning</button>
+            <button class="btn btn-sm btn-outline"
+              onclick="app.toastInfo('Info!', 'Nova atualização disponível')">Info</button>
+            <button class="btn btn-sm btn-primary" onclick="testToastStack()">Stack 3D</button>
+            <button class="btn btn-sm btn-accent" onclick="startDownloadDemo()">Download (Progresso)</button>
+            <button class="btn btn-sm btn-warning" onclick="startLockedTask()">Tarefa Bloqueada</button>
+          </div>
+        </div>
+
+        <!-- Mensagens Centro -->
+        <div class="demo-section">
+          <h3 class="demo-section-title">Mensagens Centro</h3>
+          <div class="flex flex-wrap gap-sm">
+            <button class="btn btn-sm btn-outline" onclick="app.message('Salvo!', 'success')">Mensagem</button>
+            <button class="btn btn-sm btn-outline" onclick="app.message('Erro ao salvar', 'error')">Erro</button>
+          </div>
+        </div>
+
+        <!-- Modals -->
+        <div class="demo-section">
+          <h3 class="demo-section-title">Modais</h3>
+          <div class="flex flex-wrap gap-sm">
+            <button class="btn btn-sm btn-outline" onclick="showAlertModal()">Alert</button>
+            <button class="btn btn-sm btn-outline" onclick="showConfirmModal()">Confirm</button>
+            <button class="btn btn-sm btn-outline" onclick="showPromptModal()">Prompt</button>
+            <button class="btn btn-sm btn-outline" onclick="showCustomModal()">Custom</button>
+          </div>
+        </div>
+
+        <!-- Forms -->
+        <div class="demo-section">
+          <h3 class="demo-section-title">Formulários</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="input-group">
+                <label class="input-label">Nome</label>
+                <input type="text" class="input-field" placeholder="Seu nome">
+              </div>
+              <div class="input-group">
+                <label class="input-label">Email</label>
+                <input type="email" class="input-field" placeholder="email@exemplo.com">
+              </div>
+              <div class="input-group">
+                <label class="input-label">Mensagem</label>
+                <textarea class="input-field" placeholder="Sua mensagem..."></textarea>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" class="toggle-input">
+                <span class="toggle-switch"></span>
+                <span>Ativar notificações</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- List Items -->
+        <div class="demo-section">
+          <h3 class="demo-section-title">Lista</h3>
+          <div class="card" style="padding: 0; overflow: hidden;">
+            <div class="list-item">
+              <div class="list-item-icon">📧</div>
+              <div class="list-item-content">
+                <div class="list-item-title">Mensagens</div>
+                <div class="list-item-subtitle">3 novas mensagens</div>
+              </div>
+              <span class="badge badge-accent">3</span>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon">🔔</div>
+              <div class="list-item-content">
+                <div class="list-item-title">Notificações</div>
+                <div class="list-item-subtitle">Configurar alertas</div>
+              </div>
+              <div class="list-item-action">→</div>
+            </div>
+            <div class="list-item">
+              <div class="list-item-icon">⚙️</div>
+              <div class="list-item-content">
+                <div class="list-item-title">Configurações</div>
+                <div class="list-item-subtitle">Preferências do app</div>
+              </div>
+              <div class="list-item-action">→</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badges -->
+        <div class="demo-section">
+          <h3 class="demo-section-title">Badges</h3>
+          <div class="flex flex-wrap gap-sm">
+            <span class="badge">Default</span>
+            <span class="badge badge-primary">Primary</span>
+            <span class="badge badge-accent">Accent</span>
+            <span class="badge badge-success">Success</span>
+            <span class="badge badge-warning">Warning</span>
+            <span class="badge badge-error">Error</span>
+          </div>
+        </div>
+
+        <!-- Avatars -->
+        <div class="demo-section">
+          <h3 class="demo-section-title">Avatares</h3>
+          <div class="flex items-center gap-sm">
+            <div class="avatar avatar-sm">JS</div>
+            <div class="avatar">AB</div>
+            <div class="avatar avatar-lg">CD</div>
+            <div class="avatar avatar-xl">EF</div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="demo-section">
+          <h3 class="demo-section-title">Empty State</h3>
+          <div class="card">
+            <div class="empty-state">
+              <div class="empty-state-icon">📭</div>
+              <h3 class="empty-state-title">Nada aqui</h3>
+              <p class="empty-state-message">Não há itens para mostrar.</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- =================== PAGE: STORAGE =================== -->
+    <div class="page" id="page-storage" data-level="primary">
+      <header class="app-header">
+        <button class="icon-btn" data-back>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="m12 19-7-7 7-7" />
+            <path d="M19 12H5" />
+          </svg>
+        </button>
+        <h1 class="header-title">Storage</h1>
+      </header>
+
+      <main class="page-content no-bottom-nav">
+        <!-- LocalStorage -->
+        <div class="demo-section">
+          <h3 class="demo-section-title">localStorage</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="input-group">
+                <label class="input-label">Chave</label>
+                <input type="text" id="ls-key" class="input-field" value="teste">
+              </div>
+              <div class="input-group">
+                <label class="input-label">Valor</label>
+                <input type="text" id="ls-value" class="input-field" value="Hello World">
+              </div>
+              <div class="flex gap-sm">
+                <button class="btn btn-primary flex-1" onclick="saveToLocalStorage()">Salvar</button>
+                <button class="btn btn-outline flex-1" onclick="loadFromLocalStorage()">Carregar</button>
+              </div>
+              <div id="ls-result" class="mt-md text-secondary"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- IndexedDB -->
+        <div class="demo-section">
+          <h3 class="demo-section-title">IndexedDB</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="input-group">
+                <label class="input-label">Nome</label>
+                <input type="text" id="idb-name" class="input-field" placeholder="Nome do item">
+              </div>
+              <div class="flex gap-sm mb-md">
+                <button class="btn btn-primary flex-1" onclick="addToIndexedDB()">Adicionar</button>
+                <button class="btn btn-outline flex-1" onclick="loadFromIndexedDB()">Listar</button>
+                <button class="btn btn-error flex-1" onclick="clearIndexedDB()">Limpar</button>
+              </div>
+              <div id="idb-result">
+                <div class="text-secondary text-center">Clique em "Listar" para ver os itens</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- =================== PAGE: OFFLINE =================== -->
+    <div class="page" id="page-offline" data-level="primary">
+      <header class="app-header">
+        <button class="icon-btn" data-back>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="m12 19-7-7 7-7" />
+            <path d="M19 12H5" />
+          </svg>
+        </button>
+        <h1 class="header-title">Jobs & Queue</h1>
+      </header>
+
+      <main class="page-content no-bottom-nav">
+        <div class="demo-section">
+          <h3 class="demo-section-title">Sistema de Filas</h3>
+          <div class="card">
+            <div class="card-body">
+              <p class="text-secondary mb-md">
+                O sistema de filas permite agendar tarefas para serem executadas
+                quando online, com retry automático em caso de falha.
+              </p>
+              <div class="flex gap-sm mb-md">
+                <button class="btn btn-primary flex-1" onclick="addJob()">Adicionar Job</button>
+                <button class="btn btn-outline flex-1" onclick="loadJobs()">Listar Jobs</button>
+              </div>
+              <div class="flex gap-sm">
+                <button class="btn btn-sm btn-success flex-1" onclick="processJobs()">Processar</button>
+                <button class="btn btn-sm btn-error flex-1" onclick="clearJobs()">Limpar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <h3 class="demo-section-title">Jobs na Fila</h3>
+          <div id="jobs-list">
+            <div class="card">
+              <div class="empty-state">
+                <div class="empty-state-icon">📋</div>
+                <p class="empty-state-message">Clique em "Listar Jobs"</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <h3 class="demo-section-title">Status de Conexão</h3>
+          <div class="card">
+            <div class="card-body flex items-center gap-md">
+              <div id="connection-status" style="font-size: 2rem;">🌐</div>
+              <div>
+                <div class="font-semibold" id="connection-text">Online</div>
+                <div class="text-secondary text-sm">Jobs serão processados automaticamente</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- =================== PAGE: PWA =================== -->
+    <div class="page" id="page-pwa" data-level="primary">
+      <header class="app-header">
+        <button class="icon-btn" data-back>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="m12 19-7-7 7-7" />
+            <path d="M19 12H5" />
+          </svg>
+        </button>
+        <h1 class="header-title">PWA</h1>
+      </header>
+
+      <main class="page-content mb-nav">
+        <div class="demo-section">
+          <h3 class="demo-section-title">Instalação</h3>
+          <div class="card">
+            <div class="card-body text-center">
+              <div style="font-size: 4rem; margin-bottom: 1rem;">📱</div>
+              <h3>Instale o App</h3>
+              <p class="text-secondary mb-md">
+                Adicione à tela inicial para acesso rápido e experiência nativa.
+              </p>
+              <button id="btn-install" class="btn btn-primary btn-lg btn-block" onclick="installPWA()"
+                style="display: none;">
+                Instalar App
+              </button>
+              <div id="pwa-installed" style="display: none;">
+                <span class="badge badge-success">✓ App Instalado</span>
+              </div>
+              <div id="pwa-unavailable">
+                <p class="text-muted text-sm">
+                  Serve esta página via HTTPS para habilitar instalação.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <h3 class="demo-section-title">Notificações</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="flex items-center justify-between mb-md">
+                <span>Permissão:</span>
+                <span id="notif-status" class="badge">Não solicitada</span>
+              </div>
+              <div class="flex gap-sm">
+                <button class="btn btn-outline flex-1" onclick="requestNotificationPermission()">
+                  Solicitar
+                </button>
+                <button class="btn btn-primary flex-1" onclick="showNotification()">
+                  Testar
+                </button>
+                <button class="btn btn-sm btn-accent flex-1" onclick="openNotifications()">
+                  Ver notificações
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-section">
+          <h3 class="demo-section-title">Service Worker</h3>
+          <div class="card">
+            <div class="card-body">
+              <div class="flex items-center justify-between">
+                <span>Status:</span>
+                <span id="sw-status" class="badge">Verificando...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </div>
+  <!-- Bottom Navigation com data-show-on -->
+  <nav class="bottom-nav" data-show-on="home,components,storage,pwa">
+    <button class="nav-item" data-go="home" data-active-on="home">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2">
+        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      </svg>
+      <span>Home</span>
+    </button>
+    <button class="nav-item" data-go="components" data-active-on="components">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2">
+        <rect width="7" height="7" x="3" y="3" rx="1" />
+        <rect width="7" height="7" x="14" y="3" rx="1" />
+        <rect width="7" height="7" x="14" y="14" rx="1" />
+        <rect width="7" height="7" x="3" y="14" rx="1" />
+      </svg>
+      <span>UI</span>
+    </button>
+    <button class="nav-item" data-go="storage" data-active-on="storage">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2">
+        <ellipse cx="12" cy="5" rx="9" ry="3" />
+        <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+        <path d="M3 12A9 3 0 0 0 21 12" />
+      </svg>
+      <span>Storage</span>
+    </button>
+    <button class="nav-item" data-go="pwa" data-active-on="pwa">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2">
+        <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+        <path d="M12 18h.01" />
+      </svg>
+      <span>PWA</span>
+    </button>
+  </nav>
+
+  <!-- =================== PAGE: NOTIFICATIONS =================== -->
+  <div class="page" id="page-notifications" data-level="primary">
+    <header class="app-header">
+      <button class="icon-btn" data-back>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path d="m12 19-7-7 7-7" />
+          <path d="M19 12H5" />
+        </svg>
+      </button>
+      <h1 class="header-title">Notificações</h1>
+    </header>
+
+    <main class="page-content no-bottom-nav">
+      <div class="demo-section">
+        <h3 class="demo-section-title">Inbox</h3>
+        <div class="card">
+          <div class="card-body">
+            <div class="flex gap-sm mb-md">
+              <button class="btn btn-primary" onclick="createDemoNotification()">Criar notificação</button>
+              <button class="btn btn-outline" onclick="loadNotifications()">Recarregar</button>
+              <button class="btn btn-error" onclick="clearAllNotifications()">Limpar tudo</button>
+            </div>
+            <div id="notifications-list">
+              <div class="empty-state">
+                <div class="empty-state-icon">🔔</div>
+                <p class="empty-state-message">Nenhuma notificação</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- =================== DRAWER =================== -->
+  <div class="drawer" id="menu">
+    <div class="drawer-header">
+      <h2 style="margin: 0;">Menu</h2>
+    </div>
+    <div class="drawer-body" style="padding: 0;">
+      <div class="list-item" data-go="home" data-close-overlay>
+        <div class="list-item-icon">🏠</div>
+        <div class="list-item-content">
+          <div class="list-item-title">Home</div>
+        </div>
+      </div>
+      <div class="list-item" data-go="navigation" data-close-overlay>
+        <div class="list-item-icon">🧭</div>
+        <div class="list-item-content">
+          <div class="list-item-title">Navegação</div>
+        </div>
+      </div>
+      <div class="list-item" data-go="components" data-close-overlay>
+        <div class="list-item-icon">🎨</div>
+        <div class="list-item-content">
+          <div class="list-item-title">Componentes</div>
+        </div>
+      </div>
+      <div class="list-item" data-go="storage" data-close-overlay>
+        <div class="list-item-icon">💾</div>
+        <div class="list-item-content">
+          <div class="list-item-title">Storage</div>
+        </div>
+      </div>
+      <div class="list-item" data-go="offline" data-close-overlay>
+        <div class="list-item-icon">📋</div>
+        <div class="list-item-content">
+          <div class="list-item-title">Offline</div>
+        </div>
+      </div>
+      <div class="list-item" data-go="pwa" data-close-overlay>
+        <div class="list-item-icon">📱</div>
+        <div class="list-item-content">
+          <div class="list-item-title">PWA</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="list-item" onclick="toggleTheme()">
+        <div class="list-item-icon">🌙</div>
+        <div class="list-item-content">
+          <div class="list-item-title">Tema Escuro</div>
+        </div>
+        <label class="toggle" style="pointer-events: none;">
+          <input type="checkbox" class="toggle-input" id="theme-toggle">
+          <span class="toggle-switch"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== BOTTOM SHEETS =================== -->
+  <div class="bottom-sheet" id="settings">
+    <div class="grabber-handle">
+      <div class="grabber-bar"></div>
+    </div>
+    <div class="sheet-header">
+      <h3 style="margin: 0;">Configurações Rápidas</h3>
+    </div>
+    <div class="sheet-body">
+      <div class="list-item">
+        <div class="list-item-icon">🎨</div>
+        <div class="list-item-content">
+          <div class="list-item-title">Animação</div>
+          <div class="list-item-subtitle">Tipo de transição</div>
+        </div>
+        <select class="input-field" style="width: auto;" onchange="changeAnimation(this.value)">
+          <option value="fade">Fade</option>
+          <option value="slide">Slide</option>
+          <option value="stack">Stack</option>
+          <option value="zoom">Zoom</option>
+          <option value="flip">Flip</option>
+          <option value="cube">Cube</option>
+        </select>
+      </div>
+      <div class="list-item" onclick="toggleTheme()">
+        <div class="list-item-icon">🌙</div>
+        <div class="list-item-content">
+          <div class="list-item-title">Tema Escuro</div>
+        </div>
+        <label class="toggle" style="pointer-events: none;">
+          <input type="checkbox" class="toggle-input" id="theme-toggle-sheet">
+          <span class="toggle-switch"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-sheet" id="demo-sheet">
+    <div class="grabber-handle">
+      <div class="grabber-bar"></div>
+    </div>
+    <div class="sheet-header">
+      <h3 style="margin: 0;">Bottom Sheet Demo</h3>
+    </div>
+    <div class="sheet-body">
+      <p class="text-secondary mb-md">
+        Arraste para baixo ou clique no backdrop para fechar.
+      </p>
+      <div class="list-item" data-close-overlay>
+        <div class="list-item-icon">📷</div>
+        <div class="list-item-content">
+          <div class="list-item-title">Tirar Foto</div>
+        </div>
+      </div>
+      <div class="list-item" data-close-overlay>
+        <div class="list-item-icon">🖼️</div>
+        <div class="list-item-content">
+          <div class="list-item-title">Escolher da Galeria</div>
+        </div>
+      </div>
+      <div class="list-item" data-close-overlay>
+        <div class="list-item-icon">📄</div>
+        <div class="list-item-content">
+          <div class="list-item-title">Escolher Arquivo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== BACKDROP =================== -->
+  <div id="backdrop"></div>
+
+  <!-- =================== TOAST CONTAINER =================== -->
+  <div id="toast-container" class="toast-container toast-bottom-right"></div>
+
+  <!-- =================== LOADING OVERLAY =================== -->
+  <div id="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Carregando...</p>
+  </div>
+
+  <!-- =================== SCRIPTS =================== -->
+  <!-- Core -->
+  <script src="../src/core/spa.js"></script>
+
+  <!-- UI -->
+  <script src="../src/ui/modals.js"></script>
+
+  <!-- Storage -->
+  <script src="../src/storage/indexeddb.js"></script>
+  <script src="../src/storage/localstorage.js"></script>
+  <!-- Offline -->
+  <script src="../src/offline/queue.js"></script>
+
+  <!-- PWA -->
+  <script src="../src/pwa/install.js"></script>
+  <script src="../src/pwa/notifications.js"></script>
+
+  <script>
+    // =================== INICIALIZAÇÃO ===================
+    let app;
+
+    async function initApp() {
+      // Cria instância do SPA
+      app = new SPA({
+        homePage: 'home',
+        animation: {
+          type: 'fade',
+          speed: 0.35
+        },
+        debug: {
+          enabled: true,
+          level: 2
+        }
+      });
+
+      // Inicializa
+      await app.init();
+
+      // Configura IndexedDB (cria a store automaticamente; aguarde se necessário)
+      if (app.db) {
+        await app.db.defineTable('items', {
+          keyPath: 'id',
+          autoIncrement: true,
+          indexes: ['name']
+        });
+      }
+
+      // Registra handler de jobs
+      if (app.queue) {
+        app.queue.register('demo-job', async (data) => {
+          // Simula processamento
+          await new Promise(r => setTimeout(r, 1000));
+          console.log('Job processado:', data);
+          return { success: true };
+        });
+      }
+
+      // Torna global
+      window.app = app;
+
+      // Carrega tema salvo
+      const savedTheme = app.storage?.get('theme', 'light');
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.getElementById('theme-toggle').checked = true;
+        document.getElementById('theme-toggle-sheet').checked = true;
+      }
+
+      // Atualiza status de conexão
+      updateConnectionStatus();
+      window.addEventListener('online', updateConnectionStatus);
+      window.addEventListener('offline', updateConnectionStatus);
+
+      // Verifica PWA
+      checkPWAStatus();
+
+      console.log('✅ Demo App inicializado');
+    }
+
+    // Inicializa quando DOM estiver pronto
+    document.addEventListener('DOMContentLoaded', initApp);
+
+    // =================== FUNÇÕES DE DEMO ===================
+
+    // Navegação
+    function changeAnimation(type) {
+      app.config.animation.type = type;
+      document.documentElement.dataset.animation = type;
+      app.toast(`Animação: ${type}`, 'info');
+    }
+
+    // Tema
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      app.storage?.set('theme', isDark ? 'dark' : 'light');
+      document.getElementById('theme-toggle').checked = isDark;
+      document.getElementById('theme-toggle-sheet').checked = isDark;
+    }
+
+    // Modais
+    async function showAlertModal() {
+      await app.modal({
+        title: 'Olá!',
+        message: 'Este é um modal de alerta simples.',
+        type: 'success'
+      });
+    }
+
+    async function showConfirmModal() {
+      const result = await app.modal({
+        title: 'Confirmar',
+        message: 'Deseja continuar com esta ação?',
+        type: 'confirm',
+        confirmText: 'Sim, continuar',
+        cancelText: 'Cancelar'
+      });
+      app.toast(result ? 'Confirmado!' : 'Cancelado!', result ? 'success' : 'info');
+    }
+
+    async function showPromptModal() {
+      const nome = await app.modal({
+        title: 'Seu Nome',
+        message: 'Digite seu nome:',
+        type: 'prompt',
+        placeholder: 'Nome completo'
+      });
+      if (nome) {
+        app.toast(`Olá, ${nome}!`, 'success');
+      }
+    }
+
+    async function showCustomModal() {
+      const result = await app.modal({
+        title: '🎨 Modal Personalizado',
+        html: `
+          <div style="margin: 1rem 0;">
+            <p style="margin-bottom: 1rem;">Escolha uma opção:</p>
+            <div style="display: grid; gap: 0.5rem;">
+              <div class="card" style="padding: 0.75rem; cursor: pointer; border: 2px solid var(--spa-border);" onclick="this.style.borderColor='var(--spa-primary)';">
+                <strong>🚀 Opção Premium</strong>
+                <p style="font-size: 0.875rem; margin: 0.25rem 0 0; color: var(--spa-text-secondary);">Recursos avançados</p>
+              </div>
+              <div class="card" style="padding: 0.75rem; cursor: pointer; border: 2px solid var(--spa-border);" onclick="this.style.borderColor='var(--spa-primary)';">
+                <strong>⭐ Opção Básica</strong>
+                <p style="font-size: 0.875rem; margin: 0.25rem 0 0; color: var(--spa-text-secondary);">Recursos essenciais</p>
+              </div>
+            </div>
+          </div>
+        `,
+        type: 'custom',
+        width: '500px',
+        customButtons: [
+          { text: 'Cancelar', class: 'btn btn-outline', value: 'cancel' },
+          { text: 'Confirmar', class: 'btn btn-primary', value: 'ok' }
+        ]
+      });
+
+      if (result === 'ok') {
+        app.message('Opção confirmada!', 'success');
+      }
+    }
+
+    function testToastStack() {
+      app.toastInfo('Primeira mensagem', 'Teste de stack 3D', { duration: 5000 });
+      setTimeout(() => app.toastSuccess('Segunda mensagem', 'Empilhamento visual', { duration: 5000 }), 300);
+      setTimeout(() => app.toastWarning('Terceira mensagem', 'Efeito Bento', { duration: 5000 }), 600);
+      setTimeout(() => app.toastError('Quarta mensagem', 'Com gestos', { duration: 5000 }), 900);
+    }
+
+    // Demo: Download com Progress Bar
+    function startDownloadDemo() {
+      const id = app.toastLoading('Baixando Arquivo...', 'Conectando ao servidor', { progress: 0 });
+
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 15);
+
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          app.updateToast(id, {
+            type: 'success',
+            title: 'Download Completo',
+            description: 'O arquivo photo_edit.jpg foi salvo.',
+            progress: 100,
+            dismissible: true
+          });
+          setTimeout(() => app.dismissToast(id), 3000);
+        } else {
+          app.updateToast(id, {
+            progress: progress,
+            description: `Baixando... ${progress}%`
+          });
+        }
+      }, 400);
+    }
+
+    // Demo: Tarefa Bloqueada (Persistência)
+    function startLockedTask() {
+      const id = app.toast({
+        title: 'Atualização Crítica',
+        description: 'Não feche. O sistema está atualizando.',
+        type: 'loading',
+        dismissible: false,
+        duration: Infinity
+      });
+
+      setTimeout(() => {
+        app.updateToast(id, {
+          type: 'success',
+          title: 'Sistema Atualizado',
+          description: 'Você já pode continuar trabalhando.',
+          dismissible: true
+        });
+        setTimeout(() => app.dismissToast(id), 4000);
+      }, 5000);
+    }
+
+    async function showCustomModal() {
+      const result = await app.modal({
+        title: '🎨 Modal Personalizado',
+        html: `
+                    <div style="margin: 1rem 0;">
+                        <p style="margin-bottom: 1rem;">Escolha uma opção:</p>
+                        <div style="display: grid; gap: 0.5rem;">
+                            <div class="card" style="padding: 0.75rem; cursor: pointer; border: 2px solid var(--spa-border);" onclick="this.style.borderColor='var(--spa-primary)';">
+                                <strong>🚀 Opção Premium</strong>
+                                <p style="font-size: 0.875rem; margin: 0.25rem 0 0; color: var(--spa-text-secondary);">Recursos avançados</p>
+                            </div>
+                            <div class="card" style="padding: 0.75rem; cursor: pointer; border: 2px solid var(--spa-border);" onclick="this.style.borderColor='var(--spa-primary)';">
+                                <strong>⭐ Opção Básica</strong>
+                                <p style="font-size: 0.875rem; margin: 0.25rem 0 0; color: var(--spa-text-secondary);">Recursos essenciais</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+        type: 'custom',
+        width: '500px',
+        customButtons: [
+          { text: 'Cancelar', class: 'btn btn-outline', value: 'cancel' },
+          { text: 'Confirmar', class: 'btn btn-primary', value: 'ok' }
+        ]
+      });
+
+      if (result === 'ok') {
+        app.message('Opção confirmada!', 'success');
+      }
+    }
+
+    // LocalStorage
+    function saveToLocalStorage() {
+      const key = document.getElementById('ls-key').value;
+      const value = document.getElementById('ls-value').value;
+      app.storage?.set(key, value);
+      document.getElementById('ls-result').textContent = `✅ Salvo: ${key} = ${value}`;
+      app.toast('Salvo no localStorage!', 'success');
+    }
+
+    function loadFromLocalStorage() {
+      const key = document.getElementById('ls-key').value;
+      const value = app.storage?.get(key, null);
+      document.getElementById('ls-result').textContent = value
+        ? `📖 Valor: ${value}`
+        : `❌ Chave "${key}" não encontrada`;
+    }
+
+    // IndexedDB
+    async function addToIndexedDB() {
+      const name = document.getElementById('idb-name').value;
+      if (!name) {
+        app.toast('Digite um nome', 'warning');
+        return;
+      }
+
+      // Verifica se a store 'items' existe
+      if (!app.db || !app.db.db || !app.db.db.objectStoreNames.contains('items')) {
+        app.toast('Banco não pronto. Aguarde alguns instantes.', 'warning');
+        return;
+      }
+
+      await app.db.table('items').insert({ name, createdAt: new Date().toISOString() });
+      document.getElementById('idb-name').value = '';
+      app.toast('Item adicionado!', 'success');
+      loadFromIndexedDB();
+    }
+
+    async function loadFromIndexedDB() {
+      if (!app.db || !app.db.db || !app.db.db.objectStoreNames.contains('items')) {
+        document.getElementById('idb-result').innerHTML = '<div class="text-secondary text-center">Banco não pronto</div>';
+        return;
+      }
+
+      const items = await app.db.table('items').orderBy('createdAt', 'desc').all() || [];
+      const container = document.getElementById('idb-result');
+
+      if (items.length === 0) {
+        container.innerHTML = '<div class="text-secondary text-center">Nenhum item</div>';
+        return;
+      }
+
+      container.innerHTML = items.map(item => `
+                <div class="list-item" style="background: var(--spa-bg);">
+                    <div class="list-item-content">
+                        <div class="list-item-title">${item.name}</div>
+                        <div class="list-item-subtitle">ID: ${item.id}</div>
+                    </div>
+                    <button class="btn btn-sm btn-error" onclick="deleteItem(${item.id})">✕</button>
+                </div>
+            `).join('');
+    }
+
+    async function deleteItem(id) {
+      if (!app.db || !app.db.db || !app.db.db.objectStoreNames.contains('items')) {
+        app.toast('Banco não pronto.', 'warning');
+        return;
+      }
+
+      await app.db.table('items').delete(id);
+      app.toast('Item removido', 'success');
+      loadFromIndexedDB();
+    }
+
+    async function clearIndexedDB() {
+      if (!app.db || !app.db.db || !app.db.db.objectStoreNames.contains('items')) {
+        app.toast('Banco não pronto.', 'warning');
+        return;
+      }
+
+      await app.db.table('items').truncate();
+      app.toast('Todos os itens removidos', 'success');
+      loadFromIndexedDB();
+    }
+
+    // Jobs
+    async function addJob() {
+      const jobId = await app.queue?.add('demo-job', {
+        message: `Job criado em ${new Date().toLocaleTimeString()}`,
+        timestamp: Date.now()
+      });
+      app.toast(`Job #${jobId} adicionado`, 'success');
+      loadJobs();
+    }
+
+    async function loadJobs() {
+      const jobs = await app.queue?.all() || [];
+      const container = document.getElementById('jobs-list');
+
+      if (jobs.length === 0) {
+        container.innerHTML = `
+                    <div class="card">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📋</div>
+                            <p class="empty-state-message">Nenhum job na fila</p>
+                        </div>
+                    </div>
+                `;
+        return;
+      }
+
+      container.innerHTML = jobs.map(job => {
+        const statusColors = {
+          pending: 'warning',
+          processing: 'accent',
+          completed: 'success',
+          failed: 'error'
+        };
+        return `
+                    <div class="card mb-sm">
+                        <div class="card-body">
+                            <div class="flex items-center justify-between mb-sm">
+                                <strong>Job #${job.id}</strong>
+                                <span class="badge badge-${statusColors[job.status] || ''}">${job.status}</span>
+                            </div>
+                            <div class="text-secondary text-sm">${job.data?.message || job.type}</div>
+                            <div class="flex gap-sm mt-sm">
+                                ${job.status === 'failed' ? `<button class="btn btn-sm btn-outline" onclick="retryJob(${job.id})">Reenviar</button>` : ''}
+                                <button class="btn btn-sm btn-error" onclick="removeJob(${job.id})">Remover</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+      }).join('');
+    }
+
+    async function processJobs() {
+      const count = await app.queue?.processAll() || 0;
+      app.toast(`${count} jobs processados`, 'success');
+      loadJobs();
+    }
+
+    async function clearJobs() {
+      await app.queue?.clear();
+      app.toast('Fila limpa', 'success');
+      loadJobs();
+    }
+
+    async function retryJob(id) {
+      await app.queue?.retry(id);
+      app.toast('Job reagendado', 'info');
+      loadJobs();
+    }
+
+    async function removeJob(id) {
+      await app.queue?.remove(id);
+      app.toast('Job removido', 'success');
+      loadJobs();
+    }
+
+    function updateConnectionStatus() {
+      const isOnline = navigator.onLine;
+      document.getElementById('connection-status').textContent = isOnline ? '🌐' : '📴';
+      document.getElementById('connection-text').textContent = isOnline ? 'Online' : 'Offline';
+    }
+
+    // PWA
+    function checkPWAStatus() {
+      const btnInstall = document.getElementById('btn-install');
+      const pwaInstalled = document.getElementById('pwa-installed');
+      const pwaUnavailable = document.getElementById('pwa-unavailable');
+
+      // Verifica se está instalado
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        pwaInstalled.style.display = 'block';
+        pwaUnavailable.style.display = 'none';
+        return;
+      }
+
+      // Escuta evento de instalação disponível
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        window.deferredPrompt = e;
+        btnInstall.style.display = 'block';
+        pwaUnavailable.style.display = 'none';
+      });
+
+      // Verifica Service Worker
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistration().then(reg => {
+          document.getElementById('sw-status').textContent = reg ? 'Ativo' : 'Não registrado';
+          document.getElementById('sw-status').className = reg ? 'badge badge-success' : 'badge badge-warning';
+        });
+      } else {
+        document.getElementById('sw-status').textContent = 'Não suportado';
+        document.getElementById('sw-status').className = 'badge badge-error';
+      }
+
+      // Verifica permissão de notificação
+      updateNotificationStatus();
+    }
+
+    async function installPWA() {
+      if (window.deferredPrompt) {
+        window.deferredPrompt.prompt();
+        const { outcome } = await window.deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          app.toast('App instalado!', 'success');
+          document.getElementById('btn-install').style.display = 'none';
+          document.getElementById('pwa-installed').style.display = 'block';
+        }
+        window.deferredPrompt = null;
+      }
+    }
+
+    function updateNotificationStatus() {
+      const status = document.getElementById('notif-status');
+      if (!('Notification' in window)) {
+        status.textContent = 'Não suportado';
+        status.className = 'badge badge-error';
+      } else if (Notification.permission === 'granted') {
+        status.textContent = 'Permitido';
+        status.className = 'badge badge-success';
+      } else if (Notification.permission === 'denied') {
+        status.textContent = 'Bloqueado';
+        status.className = 'badge badge-error';
+      } else {
+        status.textContent = 'Não solicitado';
+        status.className = 'badge badge-warning';
+      }
+    }
+
+    async function requestNotificationPermission() {
+      if (!('Notification' in window)) {
+        app.toast('Notificações não suportadas', 'error');
+        return;
+      }
+
+      const permission = await Notification.requestPermission();
+      updateNotificationStatus();
+
+      if (permission === 'granted') {
+        app.toast('Permissão concedida!', 'success');
+      } else {
+        app.toast('Permissão negada', 'warning');
+      }
+    }
+
+    async function showNotification() {
+      if (Notification.permission !== 'granted') {
+        await requestNotificationPermission();
+        if (Notification.permission !== 'granted') return;
+      }
+
+      new Notification('SPA Framework', {
+        body: 'Notificação de teste funcionando!',
+        icon: '../../img/icon-192.png'
+      });
+    }
+
+    // Atualiza selo de notificações (não lidas)
+    async function updateNotifBadge() {
+      try {
+        const badge = document.getElementById('notif-badge');
+        if (!badge) return;
+
+        if (!app || !app.notifications || !app.notifications.list) {
+          badge.style.display = 'none';
+          return;
+        }
+
+        const all = await app.notifications.list();
+        const unread = all.filter(n => !n.read).length;
+        if (unread > 0) {
+          badge.textContent = unread > 99 ? '99+' : String(unread);
+          badge.style.display = 'flex';
+        } else {
+          badge.style.display = 'none';
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+
+    // Ouvir mudanças nas notificações
+    document.addEventListener('notifications:changed', () => updateNotifBadge());
+
+    // Atualiza quando o SPA estiver pronto
+    document.addEventListener('spa:ready', () => {
+      updateNotifBadge();
+      // fallback: atualiza periodicamente em segundo plano (10s)
+      setInterval(() => updateNotifBadge(), 10000);
+    });
+
+    // Notificações: integra com app.notifications quando disponível
+    async function openNotifications() {
+      if (app && app.go) app.go('notifications');
+      await loadNotifications();
+    }
+
+    async function loadNotifications() {
+      const container = document.getElementById('notifications-list');
+      container.innerHTML = '';
+
+      if (!app || !app.notifications || !app.notifications.list) {
+        container.innerHTML = '<div class="text-secondary">NotificationManager não inicializado</div>';
+        return;
+      }
+
+      const list = await app.notifications.list();
+      if (!list || list.length === 0) {
+        container.innerHTML = `<div class="empty-state"><div class="empty-state-icon">🔕</div><p class="empty-state-message">Nenhuma notificação</p></div>`;
+        return;
+      }
+
+      const html = list.map(n => {
+        const readClass = n.read ? 'text-secondary' : 'font-semibold';
+        return `
+          <div class="list-item" style="align-items:flex-start;">
+            <div class="list-item-icon">🔔</div>
+            <div class="list-item-content">
+              <div class="list-item-title ${readClass}">${escapeHtml(n.title || '')}</div>
+              <div class="list-item-subtitle text-sm text-secondary">${escapeHtml(n.body || '')}</div>
+              <div class="text-xs text-muted">${new Date(n.createdAt).toLocaleString()}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <button class="btn btn-sm btn-outline" onclick="markRead(${n.id})">Ler</button>
+              <button class="btn btn-sm btn-error" onclick="removeNotification(${n.id})">Remover</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = `<div class="card" style="padding:0;">${html}</div>`;
+    }
+
+    async function createDemoNotification() {
+      const payload = {
+        title: 'Item adicionado',
+        body: 'Um item foi adicionado ao IndexedDB',
+        tag: 'demo',
+        data: { demo: true },
+        icon: '../../img/icon-192.png'
+      };
+
+      if (app && app.notifications && app.notifications.show) {
+        await app.notifications.show(payload.title, { body: payload.body, tag: payload.tag, icon: payload.icon, data: payload.data });
+        // armazena também no DB se o manager oferecer 'store'
+        if (app.notifications.store) await app.notifications.store(payload);
+      } else if (Notification.permission === 'granted') {
+        new Notification(payload.title, { body: payload.body, icon: payload.icon });
+      } else {
+        app.toast(payload.title, payload.body, { type: 'info' });
+      }
+
+      await loadNotifications();
+    }
+
+    async function markRead(id) {
+      if (app && app.notifications && app.notifications.markRead) await app.notifications.markRead(id);
+      await loadNotifications();
+    }
+
+    async function removeNotification(id) {
+      if (app && app.notifications && app.notifications.remove) await app.notifications.remove(id);
+      await loadNotifications();
+    }
+
+    async function clearAllNotifications() {
+      const items = await app.notifications.list();
+      for (const i of items) {
+        await app.notifications.remove(i.id);
+      }
+      await loadNotifications();
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Auto-refresh while on notifications page to save recursos
+    let notificationsRefreshInterval = null;
+
+    function startNotificationsAutoRefresh() {
+      if (notificationsRefreshInterval) return;
+      // Carrega imediatamente e depois a cada 5s
+      loadNotifications();
+      notificationsRefreshInterval = setInterval(() => {
+        loadNotifications();
+      }, 5000);
+    }
+
+    function stopNotificationsAutoRefresh() {
+      if (notificationsRefreshInterval) {
+        clearInterval(notificationsRefreshInterval);
+        notificationsRefreshInterval = null;
+      }
+      // Limpa lista do DOM para economizar memória
+      const container = document.getElementById('notifications-list');
+      if (container) container.innerHTML = '';
+    }
+
+    // Escuta eventos de navegação para ativar/desativar auto-refresh
+    document.addEventListener('page:enter', (e) => {
+      try {
+        if (e.detail && e.detail.pageId === 'notifications') {
+          startNotificationsAutoRefresh();
+        }
+      } catch (err) {
+        // ignore
+      }
+    });
+
+    document.addEventListener('page:leave', (e) => {
+      try {
+        if (e.detail && e.detail.pageId === 'notifications') {
+          stopNotificationsAutoRefresh();
+        }
+      } catch (err) {
+        // ignore
+      }
+    });
+  </script>
+</x-spa-layout>

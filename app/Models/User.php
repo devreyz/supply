@@ -25,15 +25,21 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'avatar',
         'googleid',
-        'zepocket_id',
+        'zetools_id',
         'current_company_id',
+        'zetools_token',
+        'zetools_refresh_token',
+        'token_expires_at',
+        'subscriptions_cache',
     ];
 
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'zetools_token', 'zetools_refresh_token'];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'token_expires_at' => 'datetime',
+        'subscriptions_cache' => 'array',
     ];
 
     public function sendPasswordResetNotification($token)

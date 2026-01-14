@@ -34,11 +34,11 @@ return [
     "client_secret" => env("GOOGLE_CLIENT_SECRET"),
     "redirect" => env("GOOGLE_REDIRECT", env("GOOGLE_REDIRECT_URI")),
   ],
-  "zepocket" => [
-    "client_id" => env("ZEPOCKET_CLIENT_ID"),
-    "client_secret" => env("ZEPOCKET_CLIENT_SECRET"),
-    "redirect" => env("ZEPOCKET_REDIRECT_URI"),
-    "base_url" => env("ZEPOCKET_BASE_URL", "https://zepocket.com.br"),
+  "zetools" => [
+    "client_id" => env("ZETOOLS_CLIENT_ID"),
+    "client_secret" => env("ZETOOLS_CLIENT_SECRET"),
+    "redirect" => env("ZETOOLS_REDIRECT_URI", "http://localhost:8001/auth/callback"),
+    "base_url" => env("ZETOOLS_BASE_URL", "http://localhost:8000"),
   ],
   // "mercadopago" => [
   //   "access_token" => env("MERCADOPAGO_ACCESS_TOKEN"),

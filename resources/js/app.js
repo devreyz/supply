@@ -41,15 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
         },
     });
 
-    // Inicializa módulos de página
-    initHomePage(app);
-    initAgendamentoPage(app);
-    initChatPage(app);
-    initConfiguracoesPage(app);
-    initConveniosPage(app);
-    initExamesListaPage(app);
-    initOrcamentosPage(app);
-    initResultadoPage(app);
 
     // Inicializa lógica global (overlays, tema, LGPD)
     initGlobalLogic(app);

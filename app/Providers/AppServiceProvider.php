@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\Socialite\ZepocketProvider;
+use App\Providers\ZeToolsProvider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
@@ -52,11 +52,11 @@ class AppServiceProvider extends ServiceProvider
         ->hasRole($role);
     });
 
-    // Registrar o provider customizado do Socialite para ZePocket
+    // Registrar o provider customizado do Socialite para ZeTools
     $socialite = $this->app->make(SocialiteFactory::class);
-    $socialite->extend('zepocket', function ($app) use ($socialite) {
-      $config = $app['config']['services.zepocket'];
-      return $socialite->buildProvider(ZepocketProvider::class, $config);
+    $socialite->extend('zetools', function ($app) use ($socialite) {
+      $config = $app['config']['services.zetools'];
+      return $socialite->buildProvider(ZeToolsProvider::class, $config);
     });
   }
 }

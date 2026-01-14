@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "adb": "adb reverse tcp:8000 tcp:8000 && adb reverse tcp:5173 tcp:5173 && adb reverse tcp:5500 tcp:5500",
+        "adb": "adb reverse tcp:8001 tcp:8001 && adb reverse tcp:5173 tcp:5173 && adb reverse tcp:5500 tcp:5500",
         "tw": "npx tailwindcss -i ./resources/css/app.css -o ./public/assets/css/app.css --watch"
     },
     "devDependencies": {
