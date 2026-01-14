@@ -56,6 +56,16 @@ class ZeToolsAuthController extends Controller
                 $user = User::where('email', $zetoolsUser->email)->first();
             }
 
+            // Extrair data de expiração da assinatura do Gôndola
+            $subscriptionData = $userData['subscription_status'] ?? [];
+            $gondolaSubscription = collect($subscriptionData)->firstWhere('service_slug', 'gondola');
+            $serviceExpiresAt = $gondolaSubscription['expires_at'] ?? null;
+            
+            // Se não tiver data de expiração, assumir 30 dias (ou null para acesso vitalício)
+            $serviceAccessExpires = $serviceExpiresAt 
+                ? \Carbon\Carbon::parse($serviceExpiresAt)
+                : now()->addDays(30);
+
             $userDataToUpdate = [
                 'zetools_id' => $zetoolsUser->id,
                 'name' => $zetoolsUser->name,
@@ -64,7 +74,9 @@ class ZeToolsAuthController extends Controller
                 'zetools_token' => $zetoolsUser->token,
                 'zetools_refresh_token' => $zetoolsUser->refreshToken,
                 'token_expires_at' => now()->addSeconds($zetoolsUser->expiresIn ?? 1296000),
-                'subscriptions_cache' => $userData['subscription_status'] ?? [], // Salva o array completo
+                'service_access_expires_at' => $serviceAccessExpires,
+                'last_access_check_at' => now(),
+                'subscriptions_cache' => $subscriptionData, // Salva o array completo
                 'email_verified_at' => now(), // Usuário vindo do OAuth é considerado verificado
             ];
 
@@ -99,6 +111,20 @@ class ZeToolsAuthController extends Controller
         request()->session()->regenerateToken();
 
         return redirect()->route('login')->with('success', 'Sessão encerrada.');
+    }
+
+    /**
+     * Switch account: logout current user (if any) and redirect to ZeTools OAuth
+     */
+    public function switch(): RedirectResponse
+    {
+        if (Auth::check()) {
+            Auth::logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+        }
+
+        return redirect()->route('auth.zetools');
     }
 
     /**

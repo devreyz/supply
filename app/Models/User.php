@@ -30,6 +30,8 @@ class User extends Authenticatable implements FilamentUser
         'zetools_token',
         'zetools_refresh_token',
         'token_expires_at',
+        'service_access_expires_at',
+        'last_access_check_at',
         'subscriptions_cache',
     ];
 
@@ -39,6 +41,8 @@ class User extends Authenticatable implements FilamentUser
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'token_expires_at' => 'datetime',
+        'service_access_expires_at' => 'datetime',
+        'last_access_check_at' => 'datetime',
         'subscriptions_cache' => 'array',
     ];
 
