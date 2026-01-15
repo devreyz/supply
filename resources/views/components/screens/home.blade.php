@@ -10,7 +10,7 @@
                 <i data-lucide="package" class="w-5 h-5 text-white"></i>
             </div>
             <div>
-                <h1 class="text-lg font-black tracking-tight">ZePocket</h1>
+                <h1 class="text-lg font-black tracking-tight">Tools</h1>
                 <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Gestor de Compras</p>
             </div>
         </div>
@@ -19,6 +19,12 @@
                 <span id="sync-status-icon" class="w-2 h-2 rounded-full bg-slate-300"></span>
                 <span id="sync-status-text">Offline</span>
             </div>
+            <form method="POST" action="{{ route('logout') }}" class="inline">
+                @csrf
+                <button type="submit" class="icon-btn" title="Sair">
+                    <i data-lucide="log-out" class="w-6 h-6"></i>
+                </button>
+            </form>
             <button class="icon-btn" data-go="zepocket-settings">
                 <i data-lucide="settings" class="w-6 h-6"></i>
             </button>

@@ -8,17 +8,18 @@
     "name": "vendor"
   },
   "resources/css/app.css": {
-    "file": "assets/app-ClWw4DV4.css",
+    "file": "assets/app-DqpYdisA.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/css/zepocket.css": {
-    "file": "assets/zepocket-CObA2fBJ.css",
+    "file": "assets/zepocket-l0sNRNKZ.js",
+    "name": "zepocket",
     "src": "resources/css/zepocket.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-CclahGKN.js",
+    "file": "assets/app-DWwL1rD9.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -28,7 +29,7 @@
     ]
   },
   "resources/js/modules/zepocket/main.js": {
-    "file": "assets/main-_QyEz13x.js",
+    "file": "assets/main-OE6PcDI0.js",
     "name": "main",
     "src": "resources/js/modules/zepocket/main.js",
     "isEntry": true,

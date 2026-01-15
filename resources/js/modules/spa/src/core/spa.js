@@ -142,6 +142,80 @@ class SPA {
         this._handleClick = this._handleClick.bind(this);
         this._handleOnline = this._handleOnline.bind(this);
         this._handleOffline = this._handleOffline.bind(this);
+
+        // Inicializa o Proxy de elementos (app.el)
+        this._setupElProxy();
+    }
+
+    /**
+     * Configura o Proxy para acesso a elementos via app.el
+     * Permite: app.el("selector") e app.el.name
+     * @private
+     */
+    _setupElProxy() {
+        // Objeto base que é uma função: app.el("selector")
+        const elBase = (selector) => {
+            if (!selector) return null;
+            // Se for um objeto (elemento DOM), retorna ele mesmo
+            if (typeof selector === "object" && selector.nodeType)
+                return selector;
+
+            // Se não tiver caracteres de seletor (., #, [, >), assume que é um ID
+            if (/^[a-zA-Z0-9_-]+$/.test(selector)) {
+                return document.getElementById(selector);
+            }
+            return document.querySelector(selector);
+        };
+
+        // Cache para os elementos registrados via registerElements
+        this._elCache = {};
+
+        // Proxy para permitir app.el.name e app.el("selector")
+        this.el = new Proxy(elBase, {
+            get: (target, prop) => {
+                // Se a propriedade existe no cache, retorne
+                if (this._elCache && prop in this._elCache) {
+                    return this._elCache[prop];
+                }
+                // Se for uma propriedade da função base (como 'bind', 'call')
+                if (prop in target) {
+                    return target[prop];
+                }
+                return undefined;
+            },
+            set: (target, prop, value) => {
+                if (this._elCache) {
+                    this._elCache[prop] = value;
+                }
+                return true;
+            },
+        });
+    }
+
+    /**
+     * Registra uma lista de elementos para acesso rápido via app.el.nome
+     * @param {Object|Array} elements - Objeto {nome: seletor} ou Array de seletores (usa ID como nome)
+     */
+    registerElements(elements) {
+        if (!elements) return;
+
+        if (Array.isArray(elements)) {
+            elements.forEach((selector) => {
+                const el = this.el(selector);
+                if (el) {
+                    // Pega o ID ou o nome da tag como chave
+                    const key = el.id || selector.replace(/[^a-zA-Z0-9]/g, "_");
+                    this.el[key] = el;
+                }
+            });
+        } else {
+            for (const [name, selector] of Object.entries(elements)) {
+                const el = this.el(selector);
+                if (el) {
+                    this.el[name] = el;
+                }
+            }
+        }
     }
 
     /**
@@ -1552,9 +1626,11 @@ class SPA {
      */
     async _initStorage() {
         try {
-
             // Inicializa IndexedDB ORM
-            this._db = new IndexedDBORM(this.config.db.name, this.config.db.version);
+            this._db = new IndexedDBORM(
+                this.config.db.name,
+                this.config.db.version
+            );
             await this._db.init();
             this._log(2, "💾 IndexedDB inicializado");
 
@@ -1566,7 +1642,6 @@ class SPA {
             this._queue = new JobQueue(this._db);
             await this._queue.init();
             this._log(2, "📋 Job Queue inicializada");
-
         } catch (error) {
             console.error("Erro ao inicializar storage:", error);
             this._emit("spa:error", { error });
